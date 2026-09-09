@@ -1,0 +1,64 @@
+name: Sincronizar refinamentos da demo
+
+on:
+  push:
+    paths:
+      - '.github/workflows/sync-demo-refinements.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Importar refinamentos visuais e de estatísticas da demonstração
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='https://raw.githubusercontent.com/viniciusnevesdev/cronometro-app/main'
+          for f in presentation-ui.js presentation.css analytics-ui.js analytics.css; do
+            curl -fsSL "$BASE/$f" -o "$f"
+            cp "$f" "beta/$f"
+          done
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def patch(path, prefix='./'):
+              p=Path(path)
+              s=p.read_text()
+              css='  <link rel="stylesheet" href="./presentation.css" />\n  <link rel="stylesheet" href="./analytics.css" />\n'
+              js='  <script src="./presentation-ui.js"></script>\n  <script src="./analytics-ui.js"></script>\n'
+              if 'presentation.css' not in s:
+                  marker='</head>'
+                  s=s.replace(marker, css+marker)
+              if 'presentation-ui.js' not in s:
+                  marker='</body>'
+                  s=s.replace(marker, js+marker)
+              p.write_text(s)
+
+          patch('index.html')
+          patch('beta/index.html')
+          PY
+      - name: Atualizar versão e registrar sincronização
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('ambientes.json')
+          d=json.loads(p.read_text())
+          d['official']['release']='0.8.10'
+          d['beta']['release']='0.8.10-beta.1'
+          p.write_text(json.dumps(d, ensure_ascii=False, indent=2)+'\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add presentation-ui.js presentation.css analytics-ui.js analytics.css beta/presentation-ui.js beta/presentation.css beta/analytics-ui.js beta/analytics.css index.html beta/index.html ambientes.json
+          if git diff --cached --quiet; then
+            echo 'Sem mudanças.'
+          else
+            git commit -m 'Sincroniza refinamentos aprovados da demonstração mantendo áreas'
+            git push
+          fi
