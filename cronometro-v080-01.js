@@ -1,36 +1,3 @@
-
-(function(){
-  /*
-   * O Safari pode disparar um evento global e genérico ("Script error.")
-   * quando a folha nativa de Compartilhar é aberta. Isso não é falha de
-   * inicialização, mas o tratador abaixo era permanente e substituía toda a
-   * interface que já estava funcionando por uma tela de erro.
-   */
-  function appAlreadyRunning(){
-    var app=document.getElementById('app');
-    return !!(window.__CRONOMETRO_BOOT_OK__ || (app&&app.querySelector('.tabbar')));
-  }
-
-  function showBootError(message){
-    var app=document.getElementById('app');
-    if(!app)return;
-    if(appAlreadyRunning()){
-      /* Mantém o erro disponível para diagnóstico sem destruir o app aberto. */
-      try{console.warn('Erro posterior à abertura do Cronômetro ignorado:',message);}catch(_){}
-      return;
-    }
-    app.innerHTML='<main style="padding:24px;font-family:-apple-system,BlinkMacSystemFont,system-ui;color:#111">'+
-      '<h1 style="font-size:22px">Não foi possível abrir o aplicativo</h1>'+
-      '<p style="font-size:14px;line-height:1.45">O site foi publicado, mas ocorreu um erro ao iniciar.</p>'+
-      '<pre style="white-space:pre-wrap;font-size:12px;background:#f2f2f6;padding:12px;border-radius:14px">'+
-      String(message||'Erro desconhecido').replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})+
-      '</pre></main>';
-  }
-  window.addEventListener('error',function(e){ showBootError(e.message||e.error||'Erro de JavaScript'); });
-  window.addEventListener('unhandledrejection',function(e){ showBootError(e.reason && (e.reason.message||e.reason) || 'Erro ao iniciar'); });
-  window.__showCronometroBootError=showBootError;
-})();
-
 'use strict';
 globalThis.APP_META = Object.freeze({
   version: '0.8.0',
@@ -322,6 +289,7 @@ async function undo(){
 }
 
   
+
 'use strict';
 
 const DB_NAME='cronometro_local_v1';
@@ -415,5 +383,3 @@ async function purgeExpired(){
     }
   }
 }
-
-  
