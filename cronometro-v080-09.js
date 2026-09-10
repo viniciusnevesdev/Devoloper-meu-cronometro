@@ -181,7 +181,15 @@ async function init(){
   }
 
   document.addEventListener('visibilitychange',()=>{
-    if(!document.hidden)render();
+    if(document.hidden)return;
+    requestAnimationFrame(()=>{
+      if(document.hidden)return;
+      try{
+        if(ui.tab==='timers'&&ui.timerView==='timers')refreshTimerReadouts();
+      }catch(error){
+        console.warn('Atualização ao voltar ao app ignorada',error);
+      }
+    });
   });
 }
 
