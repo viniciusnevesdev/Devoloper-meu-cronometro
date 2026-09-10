@@ -34,7 +34,7 @@
   <script>window.APP_RELEASE="0.8.9-beta.3";window.__CRONOMETRO_DISABLE_SW__=true;setTimeout(()=>{const t=(p,m)=>Promise.race([p,new Promise(r=>setTimeout(()=>r(null),m))]);(async()=>{try{const base=new URL('./',location.href).pathname;if('serviceWorker'in navigator){const regs=await t(navigator.serviceWorker.getRegistrations(),500);if(Array.isArray(regs))Promise.allSettled(regs.filter(x=>{try{return new URL(x.scope).pathname===base}catch(_){return false}}).map(x=>x.unregister()));}if('caches'in window){const keys=await t(caches.keys(),500);if(Array.isArray(keys))Promise.allSettled(keys.filter(k=>k.startsWith('cronometro-beta-')).map(k=>caches.delete(k)));}}catch(_){}})();},0);</script>
   <script src="./boot-resilient.js"></script>
   <!-- /cronometro-public-runtime -->
-  <script src="./cronometro-v080-01.js"></script>
+  <script src="./cronometro-v080-01.js?v=0.8.9-beta-share-fix-1"></script>
   <script src="./cronometro-v080-02.js"></script>
   <script src="./cronometro-v080-03.js"></script>
   <script src="./cronometro-v080-04.js"></script>
