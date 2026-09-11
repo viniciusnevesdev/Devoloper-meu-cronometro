@@ -1,0 +1,200 @@
+/* Beta v0.8.9.4 — camada de uso diário. Não altera modelos, registros ou backup. */
+
+body.beta-ux-polished .timer-content{
+  padding-bottom:156px;
+}
+
+/* A sessão aberta deixa claro o contexto sem competir com o título. */
+.timer-topbar .model-selected-kicker{
+  margin:7px 0 -2px;
+  color:var(--secondary);
+  font-size:10px;
+  font-weight:750;
+  letter-spacing:.085em;
+  line-height:1;
+  text-transform:uppercase;
+}
+.timer-topbar .current-model-name{
+  margin-top:6px;
+  color:var(--text)!important;
+  font-size:16px;
+  font-weight:720!important;
+  letter-spacing:-.01em;
+}
+.timer-topbar .beta-model-switch{
+  width:max-content;
+  margin:3px auto 0;
+  border:0;
+  border-radius:999px;
+  padding:5px 9px;
+  background:color-mix(in srgb,var(--accent) 9%,transparent);
+  color:var(--accent);
+  font-size:11.5px;
+  font-weight:720;
+}
+.timer-topbar .current-title.untitled{
+  color:var(--accent);
+  font-weight:690;
+}
+
+/* Cartões uniformes: leitura rápida e sem deslocamento horizontal. */
+body.beta-ux-polished .timer-list{
+  display:grid;
+  gap:10px;
+}
+body.beta-ux-polished .timer-card{
+  grid-template-columns:44px minmax(0,1fr) auto;
+  min-height:76px;
+  border-radius:22px;
+  padding:12px 14px;
+  overflow:hidden;
+  transition:transform .18s ease,background-color .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+body.beta-ux-polished .timer-card:active{transform:scale(.985)}
+body.beta-ux-polished .timer-card .timer-name-wrap{min-width:0}
+body.beta-ux-polished .timer-card .name{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:15.5px;
+  font-weight:680;
+}
+body.beta-ux-polished .timer-card .time{
+  min-width:fit-content;
+  font-variant-numeric:tabular-nums;
+  font-size:23px;
+  font-weight:720;
+}
+body.beta-ux-polished .timer-card.central{
+  min-height:88px;
+  grid-template-columns:1fr;
+  gap:3px;
+}
+body.beta-ux-polished .timer-card.central .time{font-size:27px}
+body.beta-ux-polished .add-card{
+  min-height:54px;
+  border-style:dashed;
+  border-radius:18px;
+  color:var(--accent);
+}
+body.beta-ux-polished .floating-actions.timer-actions{
+  gap:9px;
+  bottom:calc(78px + env(safe-area-inset-bottom));
+}
+body.beta-ux-polished .total-card,
+body.beta-ux-polished .floating-actions .save-btn{
+  min-height:56px!important;
+  height:56px!important;
+  border-radius:18px!important;
+}
+body.beta-ux-polished .save-btn{
+  box-shadow:0 10px 24px color-mix(in srgb,var(--action) 22%,transparent);
+  font-weight:760;
+}
+
+/* O filtro adicional só aparece quando é solicitado; busca fica sempre à mão. */
+.history-filters.beta-compact-filters{
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:start;
+  gap:8px;
+}
+.history-filter-toggle{
+  min-height:44px;
+  border:0;
+  border-radius:14px;
+  padding:0 13px;
+  background:color-mix(in srgb,var(--accent) 10%,var(--card));
+  color:var(--accent);
+  font-size:12.5px;
+  font-weight:720;
+}
+.history-filters.beta-compact-filters:not(.is-open)>#historyModel,
+.history-filters.beta-compact-filters:not(.is-open)>.date-filter-v082{display:none!important}
+.history-filters.beta-compact-filters.is-open{
+  grid-template-columns:minmax(0,1fr) auto!important;
+}
+.history-filters.beta-compact-filters.is-open>#historyModel,
+.history-filters.beta-compact-filters.is-open>.date-filter-v082{grid-column:1 / -1}
+.history-content{padding-bottom:108px}
+body.beta-ux-polished .history-card{
+  border-radius:18px;
+  padding:14px 15px;
+  box-shadow:none!important;
+}
+body.beta-ux-polished .history-card .top{gap:12px}
+body.beta-ux-polished .history-card .top strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.beta-ux-polished .history-meta{font-size:11.5px;line-height:16px}
+
+/* Ajustes com agrupamentos estáveis e menos aparência de “cartões flutuantes”. */
+body.beta-ux-polished .settings-content{padding-bottom:106px}
+body.beta-ux-polished .settings-section{margin-bottom:20px}
+body.beta-ux-polished .settings-card{
+  border:1px solid color-mix(in srgb,var(--line) 76%,transparent);
+  border-radius:22px;
+  box-shadow:none!important;
+}
+body.beta-ux-polished .settings-row{min-height:54px}
+body.beta-ux-polished .section-label{
+  margin-bottom:8px;
+  font-size:12px;
+  font-weight:690;
+  letter-spacing:.015em;
+}
+
+/* Estados vazios orientam a primeira ação, sem criar um painel visual pesado. */
+body.beta-ux-polished .empty{
+  max-width:390px;
+  margin:34px auto;
+  padding:28px 20px;
+  border:1px dashed color-mix(in srgb,var(--secondary) 36%,transparent);
+  border-radius:22px;
+  background:color-mix(in srgb,var(--card) 82%,transparent);
+  color:var(--secondary);
+  line-height:1.55;
+}
+body.beta-ux-polished .empty .ios-button{margin-top:4px}
+
+/* Navegação: pílula realmente se move de uma aba para a outra. */
+:root:not(.bottom-bar-lab-enabled) .tabbar{
+  isolation:isolate;
+  overflow:hidden;
+}
+:root:not(.bottom-bar-lab-enabled) .tabbar::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:0;
+  top:var(--beta-tab-pill-y,3px);
+  width:var(--beta-tab-pill-width,0px);
+  height:var(--beta-tab-pill-height,calc(100% - 6px));
+  transform:translateX(var(--beta-tab-pill-x,0px));
+  border-radius:999px;
+  background:var(--tabbar-selected-bg);
+  box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 34%,transparent);
+  transition:transform .42s cubic-bezier(.22,1,.36,1),width .42s cubic-bezier(.22,1,.36,1),height .26s ease,top .26s ease;
+  pointer-events:none;
+}
+:root:not(.bottom-bar-lab-enabled) .tabbar button{
+  position:relative;
+  z-index:1;
+  background:transparent!important;
+  transition:color .28s ease,transform .2s ease!important;
+}
+:root:not(.bottom-bar-lab-enabled) .tabbar button.active{
+  background:transparent!important;
+  color:var(--accent);
+}
+:root:not(.bottom-bar-lab-enabled) .tabbar button:active{transform:scale(.94)}
+
+/* A identificação continua disponível, porém não disputa atenção com a tarefa. */
+#cronometroBetaBadge{
+  opacity:.78;
+  transform:scale(.9);
+  transform-origin:top right;
+}
+
+@media (prefers-reduced-motion:reduce){
+  :root:not(.bottom-bar-lab-enabled) .tabbar::before,
+  :root:not(.bottom-bar-lab-enabled) .tabbar button,
+  body.beta-ux-polished .timer-card{transition-duration:.01ms!important}
+}

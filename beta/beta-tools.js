@@ -1,7 +1,7 @@
 /* Cronômetro — ferramentas exclusivas do ambiente Beta */
 (() => {
   'use strict';
-  const BETA_RELEASE='0.8.9-beta.3';
+  const BETA_RELEASE='0.8.9-beta.4';
   const PROD_DB='cronometro_local_v1';
   const BETA_DB='cronometro_beta_v1';
   const STORES=['models','sessions','state'];
@@ -25,7 +25,9 @@
     document.getElementById('cronometroBetaCopy').onclick=async e=>{if(!confirm('Substituir os dados atuais da Beta por uma cópia dos dados do app Oficial? O Oficial não será alterado.'))return;const b=e.currentTarget;b.disabled=true;b.textContent='Copiando…';try{const x=await copyOfficialToBeta();alert(`Cópia concluída: ${x.sessions} registros e ${x.models} modelos. O app Oficial permaneceu intacto.`);location.reload()}catch(error){console.error(error);b.disabled=false;b.textContent='Tentar novamente';alert('Não foi possível copiar os dados para a Beta. Nenhum dado do Oficial foi alterado.')}};
     document.getElementById('cronometroBetaClear').onclick=async e=>{if(!confirm('Apagar somente os dados da Beta? Seus dados do app Oficial permanecerão intactos.'))return;const b=e.currentTarget;b.disabled=true;b.textContent='Limpando…';try{await clearBetaOnly();location.reload()}catch(error){console.error(error);b.disabled=false;b.textContent='Tentar novamente';alert('Não foi possível limpar a Beta. O Oficial não foi alterado.')}};return true}
   function markVersion(){if(document.title!=='Cronômetro Beta')document.title='Cronômetro Beta';try{if(globalThis.APP_META?.version!==BETA_RELEASE)globalThis.APP_META=Object.freeze({...globalThis.APP_META,version:BETA_RELEASE})}catch(_){}document.querySelectorAll('#app-version-badge').forEach(el=>{const next=`BETA · v${BETA_RELEASE}`;if(el.textContent!==next)el.textContent=next})}
-  function apply(){badge();markVersion();card()}
+  /* Os recursos de cópia e limpeza permanecem no código da Beta, mas não ocupam
+     a tela de cronometragem. A home deve ficar focada na tarefa em andamento. */
+  function apply(){badge();markVersion()}
 
   apply();
   document.addEventListener('DOMContentLoaded',apply,{once:true});
