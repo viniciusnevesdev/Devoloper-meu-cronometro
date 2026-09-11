@@ -1,7 +1,7 @@
 /* Cronômetro — ferramentas exclusivas do ambiente Beta */
 (() => {
   'use strict';
-  const BETA_RELEASE='0.8.9-beta.4';
+  const BETA_RELEASE='0.8.9-beta.5';
   const PROD_DB='cronometro_local_v1';
   const BETA_DB='cronometro_beta_v1';
   const STORES=['models','sessions','state'];
@@ -15,19 +15,17 @@
 
   function style(){if(document.getElementById('cronometroBetaStyle'))return;const el=document.createElement('style');el.id='cronometroBetaStyle';el.textContent=`
     #cronometroBetaBadge{position:fixed;top:max(8px,env(safe-area-inset-top));right:10px;z-index:2147482500;padding:5px 9px;border-radius:999px;background:#ff9500;color:#fff;font:800 10px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;letter-spacing:.09em;box-shadow:0 3px 12px rgba(0,0,0,.14);pointer-events:none}
-    #cronometroBetaCard{margin:0 0 12px;padding:13px 14px;border:1px solid rgba(255,149,0,.30);border-radius:18px;background:rgba(255,149,0,.085);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;text-align:left}
-    #cronometroBetaCard strong{display:block;font-size:14px;margin-bottom:4px;color:inherit}#cronometroBetaCard p{margin:0;color:#6e6e73;font-size:11.5px;line-height:1.4}
+    #cronometroBetaDataTools{margin-bottom:20px}#cronometroBetaDataTools .section-label{margin-bottom:8px}#cronometroBetaDataTools .settings-card{border-color:rgba(255,149,0,.30)}#cronometroBetaDataTools p{margin:0;padding:11px 0;color:#6e6e73;font-size:11.5px;line-height:1.4;border-bottom:1px solid var(--line)}
     .cronometro-beta-actions{display:flex;gap:8px;margin-top:10px}.cronometro-beta-actions button{appearance:none;border:0;border-radius:11px;padding:9px 10px;font:650 11px/1.15 inherit;background:#111114;color:#fff}.cronometro-beta-actions button:last-child{background:#e5e5ea;color:#1c1c1e}
-    @media(prefers-color-scheme:dark){#cronometroBetaCard{background:rgba(255,159,10,.12);border-color:rgba(255,159,10,.34)}#cronometroBetaCard p{color:#a1a1a6}.cronometro-beta-actions button{background:#f2f2f4;color:#111114}.cronometro-beta-actions button:last-child{background:#2c2c2e;color:#f2f2f4}}
+    @media(prefers-color-scheme:dark){#cronometroBetaDataTools .settings-card{border-color:rgba(255,159,10,.34)}#cronometroBetaDataTools p{color:#a1a1a6}.cronometro-beta-actions button{background:#f2f2f4;color:#111114}.cronometro-beta-actions button:last-child{background:#2c2c2e;color:#f2f2f4}}
   `;document.head.appendChild(el)}
   function badge(){style();if(document.getElementById('cronometroBetaBadge'))return false;const b=document.createElement('div');b.id='cronometroBetaBadge';b.textContent='BETA';document.body.appendChild(b);return true}
-  function card(){style();if(document.getElementById('cronometroBetaCard'))return false;const home=document.querySelector('.timer-content');if(!home)return false;const c=document.createElement('section');c.id='cronometroBetaCard';c.dataset.betaPatched='1';c.innerHTML=`<strong>Cronômetro Beta · ${BETA_RELEASE}</strong><p>Dados isolados. Cronometrar, editar ou apagar algo aqui não altera seus registros da versão Oficial.</p><div class="cronometro-beta-actions"><button type="button" id="cronometroBetaCopy">Copiar dados do Oficial</button><button type="button" id="cronometroBetaClear">Limpar Beta</button></div>`;home.prepend(c);
+  function dataTools(){style();if(document.getElementById('cronometroBetaDataTools'))return false;const settings=document.querySelector('.settings-content');if(!settings)return false;const c=document.createElement('section');c.id='cronometroBetaDataTools';c.className='settings-section';c.dataset.betaPatched='1';c.innerHTML=`<h3 class="section-label">Ambiente Beta</h3><div class="settings-card"><p>Os dados desta versão são isolados. Copiar ou limpar aqui nunca altera a versão Oficial.</p><div class="cronometro-beta-actions"><button type="button" id="cronometroBetaCopy">Copiar dados do Oficial</button><button type="button" id="cronometroBetaClear">Limpar Beta</button></div></div>`;settings.append(c);
     document.getElementById('cronometroBetaCopy').onclick=async e=>{if(!confirm('Substituir os dados atuais da Beta por uma cópia dos dados do app Oficial? O Oficial não será alterado.'))return;const b=e.currentTarget;b.disabled=true;b.textContent='Copiando…';try{const x=await copyOfficialToBeta();alert(`Cópia concluída: ${x.sessions} registros e ${x.models} modelos. O app Oficial permaneceu intacto.`);location.reload()}catch(error){console.error(error);b.disabled=false;b.textContent='Tentar novamente';alert('Não foi possível copiar os dados para a Beta. Nenhum dado do Oficial foi alterado.')}};
     document.getElementById('cronometroBetaClear').onclick=async e=>{if(!confirm('Apagar somente os dados da Beta? Seus dados do app Oficial permanecerão intactos.'))return;const b=e.currentTarget;b.disabled=true;b.textContent='Limpando…';try{await clearBetaOnly();location.reload()}catch(error){console.error(error);b.disabled=false;b.textContent='Tentar novamente';alert('Não foi possível limpar a Beta. O Oficial não foi alterado.')}};return true}
   function markVersion(){if(document.title!=='Cronômetro Beta')document.title='Cronômetro Beta';try{if(globalThis.APP_META?.version!==BETA_RELEASE)globalThis.APP_META=Object.freeze({...globalThis.APP_META,version:BETA_RELEASE})}catch(_){}document.querySelectorAll('#app-version-badge').forEach(el=>{const next=`BETA · v${BETA_RELEASE}`;if(el.textContent!==next)el.textContent=next})}
-  /* Os recursos de cópia e limpeza permanecem no código da Beta, mas não ocupam
-     a tela de cronometragem. A home deve ficar focada na tarefa em andamento. */
-  function apply(){badge();markVersion()}
+  /* Os controles de cópia e limpeza ficam em Ajustes, sem ocupar a tela principal. */
+  function apply(){badge();markVersion();dataTools()}
 
   apply();
   document.addEventListener('DOMContentLoaded',apply,{once:true});
