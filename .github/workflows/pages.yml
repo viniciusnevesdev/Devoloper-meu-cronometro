@@ -14,7 +14,7 @@ concurrency:
 
 env:
   STABLE_RELEASE: "0.8.9"
-  BETA_LABEL: "0.8.9-beta.3"
+  BETA_LABEL: "0.8.9-beta.4"
 
 jobs:
   build-and-sync-main:
