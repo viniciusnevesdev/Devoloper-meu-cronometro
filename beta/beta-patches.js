@@ -53,12 +53,18 @@
       .toLowerCase();
   }
 
+  function versionedAssetUrl(asset){
+    const release=String(window.APP_RELEASE || 'beta');
+    return asset + (asset.includes('?') ? '&' : '?') + 'v=' + encodeURIComponent(release);
+  }
+
   function iconMarkup(def){
     if(def.asset){
+      const assetUrl=versionedAssetUrl(def.asset);
       return '<span class="beta-standard-timer-icon beta-standard-timer-icon-mask' +
         (def.asset.includes('primer-capa-base.svg') ? ' beta-primer-timer-icon' : '') +
         '" aria-hidden="true" style="-webkit-mask-image:url(' +
-        def.asset + ');mask-image:url(' + def.asset + ')"></span>';
+        assetUrl + ');mask-image:url(' + assetUrl + ')"></span>';
     }
     return '<span class="beta-standard-timer-icon" aria-hidden="true"><svg viewBox="' +
       def.viewBox +
