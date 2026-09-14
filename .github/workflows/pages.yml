@@ -163,7 +163,7 @@ jobs:
           test -s beta/apple-touch-icon-beta.png
           grep -q "const DB_NAME='cronometro_local_v1';" cronometro-v080-01.js
           grep -q "const DB_NAME='cronometro_beta_v1';" beta/cronometro-v080-01.js
-          grep -q '0.8.9-beta.3' beta/version.json
+          grep -q "${BETA_LABEL}" beta/version.json
           ! grep -q 'v0.8.1' manifest.webmanifest
           ! grep -q 'v0.8.1' beta/manifest.webmanifest
           echo "main contém exatamente o site que o GitHub Pages servirá."
