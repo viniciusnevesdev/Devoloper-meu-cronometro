@@ -16,6 +16,7 @@ const ASSETS=[
   "./beta-patches.js",
   "./beta-tools.js",
   "./boot-resilient.js",
+  "./corte-cuticula.svg",
   "./cronometro-v080-01.css",
   "./cronometro-v080-01.js",
   "./cronometro-v080-02.css",
