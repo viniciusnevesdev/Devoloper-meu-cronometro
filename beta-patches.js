@@ -58,7 +58,9 @@
 
   function iconMarkup(def){
     if(def.asset){
-      return '<span class="beta-standard-timer-icon beta-standard-timer-icon-mask" aria-hidden="true" style="-webkit-mask-image:url(' +
+      return '<span class="beta-standard-timer-icon beta-standard-timer-icon-mask' +
+        (def.asset.includes('primer-capa-base.svg') ? ' beta-primer-timer-icon' : '') +
+        '" aria-hidden="true" style="-webkit-mask-image:url(' +
         def.asset + ');mask-image:url(' + def.asset + ')"></span>';
     }
     return '<span class="beta-standard-timer-icon" aria-hidden="true"><svg viewBox="' +
@@ -92,6 +94,9 @@
     '.timer-card .name .beta-standard-timer-icon-mask{' +
       'background:currentColor;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;' +
       '-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;' +
+    '}' +
+    '.timer-card .name .beta-primer-timer-icon{' +
+      'width:26px;height:26px;margin-left:-3px;margin-right:6px;vertical-align:-7px;' +
     '}' +
     '.timer-card.central .name .beta-standard-timer-icon{vertical-align:-4px;}';
   document.head.appendChild(style);
