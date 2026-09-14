@@ -1,5 +1,5 @@
 'use strict';
-const CACHE="cronometro-beta-0.8.9-beta.5-public-6";
+const CACHE="cronometro-beta-0.8.9-beta.4-public-2";
 const BETA_MODE=true;
 const ASSETS=[
   "./",
@@ -15,8 +15,6 @@ const ASSETS=[
   "./apple-touch-icon-beta.png",
   "./beta-patches.js",
   "./beta-tools.js",
-  "./beta-ux-polish.css",
-  "./beta-ux-polish.js",
   "./boot-resilient.js",
   "./cronometro-v080-01.css",
   "./cronometro-v080-01.js",
@@ -51,9 +49,6 @@ const ASSETS=[
   "./cronometro-v087-data-backup.js",
   "./cronometro-v088-ultra-visual.css",
   "./cronometro-v088-ultra-visual.js",
-  "./cronometro-v089-area-switch-fix.css",
-  "./cronometro-v089-area-switch-fix.js",
-  "./cronometro-v089-legacy-client-migration.js",
   "./design-config.js",
   "./environment.json",
   "./icon.svg",

@@ -1,5 +1,5 @@
 'use strict';
-const CACHE="cronometro-official-0.8.9-public-4";
+const CACHE="cronometro-official-0.8.9-public-2";
 const BETA_MODE=false;
 const ASSETS=[
   "./",
@@ -57,10 +57,6 @@ const ASSETS=[
   "./launch.html",
   "./manifest.webmanifest",
   "./menu.html",
-  "./menu-apple-touch-icon.png",
-  "./menu-icon-192.png",
-  "./menu-icon-512.png",
-  "./menu-manifest.webmanifest",
   "./presentation-ui.js",
   "./presentation.css",
   "./recover.html",
