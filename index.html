@@ -22,7 +22,20 @@
   <link rel="stylesheet" href="./cronometro-v087-data-backup.css" />
   <link rel="stylesheet" href="./cronometro-v088-ultra-visual.css" />
   <style id="beta-timer-title-centering">
-    .timer-card .name{text-align:center!important}
+    #app .timer-card:not(.central){position:relative!important}
+    #app .timer-card:not(.central)>.icon{grid-column:1!important}
+    #app .timer-card:not(.central)>.time{grid-column:3!important}
+    #app .timer-card:not(.central)>.name{
+      position:absolute!important;left:50%!important;top:50%!important;
+      transform:translate(-50%,-50%)!important;width:calc(100% - 150px)!important;
+      max-width:none!important;text-align:center!important;white-space:nowrap!important;
+      overflow:hidden!important;text-overflow:ellipsis!important
+    }
+    #app .timer-card:not(.central)>.name:has(.beta-standard-timer-icon){overflow:visible!important}
+    #app .timer-card:not(.central)>.name .beta-standard-timer-icon{
+      position:absolute!important;right:calc(100% + 4px)!important;top:50%!important;
+      transform:translateY(-50%)!important;margin:0!important;vertical-align:0!important
+    }
   </style>
 </head>
 <body>
