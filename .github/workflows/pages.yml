@@ -14,7 +14,7 @@ concurrency:
 
 env:
   STABLE_RELEASE: "0.8.9"
-  BETA_LABEL: "0.8.9-beta.14"
+  BETA_LABEL: "0.8.9-beta.15"
 
 jobs:
   build-and-sync-main:
@@ -61,7 +61,6 @@ jobs:
 
       - name: Validar manual PWA iPhone antes de tocar na main
         run: |
-          # fonte pública e rotas reais
           test -s _dev/site/index.html
           test -s _dev/site/menu.html
           test -s _dev/site/menu/index.html
@@ -77,24 +76,16 @@ jobs:
           test -s _dev/site/versoes/0.8.0/index.html
           test -s _dev/site/versoes/0.8.8/index.html
           test -s _dev/site/historico-versoes.html
-
-          # bancos Oficial/Beta isolados
           grep -q "const DB_NAME='cronometro_local_v1';" _dev/site/cronometro-v080-01.js
           grep -q "const DB_NAME='cronometro_beta_v1';" _dev/site/beta/cronometro-v080-01.js
           ! grep -q "const DB_NAME='cronometro_local_v1';" _dev/site/beta/cronometro-v080-01.js
-
-          # Beta claramente identificada e sem novo SW durante desenvolvimento
           grep -q 'Cronômetro Beta' _dev/site/beta/index.html
           grep -q '__CRONOMETRO_DISABLE_SW__=true' _dev/site/beta/index.html
           grep -q '!window.__CRONOMETRO_DISABLE_SW__' _dev/site/beta/cronometro-v080-09.js
-
-          # boot resiliente
           test -s _dev/site/boot-resilient.js
           test -s _dev/site/beta/boot-resilient.js
           grep -q 'boot-resilient.js' _dev/site/index.html
           grep -q 'boot-resilient.js' _dev/site/beta/index.html
-
-          # ícones iPhone: 180 + manifest 192/512, distintos na Beta
           test -s _dev/site/apple-touch-icon.png
           test -s _dev/site/app-icon-192.png
           test -s _dev/site/app-icon-512.png
@@ -107,12 +98,8 @@ jobs:
           grep -q 'app-icon-beta-512.png' _dev/site/beta/manifest.webmanifest
           grep -q '"start_url": "./"' _dev/site/manifest.webmanifest
           grep -q '"start_url": "./"' _dev/site/beta/manifest.webmanifest
-
-          # metadados não podem carregar versão antiga
           ! grep -q 'v0.8.1' _dev/site/manifest.webmanifest
           ! grep -q 'v0.8.1' _dev/site/beta/manifest.webmanifest
-
-          # menu independente e responsivo no iPhone
           grep -q 'Central de Diagnóstico' _dev/site/menu.html
           grep -q 'repeat(2,minmax(0,1fr))' _dev/site/menu.html
           grep -q 'overflow-x:hidden' _dev/site/menu.html
@@ -122,20 +109,15 @@ jobs:
           grep -q 'cronometro_archive_080' _dev/site/versoes/0.8.0/cronometro-v080-01.js
           grep -q 'cronometro_archive_088' _dev/site/versoes/0.8.8/cronometro-v080-01.js
           grep -q '__CRONOMETRO_ARCHIVE__=true' _dev/site/versoes/0.8.8/index.html
-
-          # Service Worker não pode transformar páginas reais em index.html
           grep -q 'Páginas reais nunca recebem index.html' _dev/site/sw.js
           grep -q 'menu.html' _dev/site/sw.js
           grep -q "rel.startsWith('beta/')" _dev/site/sw.js
           grep -q "rel.startsWith('versoes/')" _dev/site/sw.js
-
-          # diagnóstico e recuperação segura
           grep -q 'Registrations reais' _dev/site/diagnostico/index.html
           grep -q 'Caches do Cronômetro' _dev/site/diagnostico/index.html
           grep -q 'controller residual' _dev/site/diagnostico/index.html
           ! grep -q 'indexedDB.deleteDatabase' _dev/site/recover.html
           ! grep -q 'localStorage.clear' _dev/site/recover.html
-
           echo "Manual validado: Oficial ${STABLE_RELEASE}; Beta ${BETA_LABEL}; main pronta para publicação."
 
       - name: Substituir os arquivos públicos da main pelo pacote validado
