@@ -40,66 +40,82 @@
       height:39px!important;
     }
 
-    /* Médio: título inteiro e centralizado na primeira linha. */
+    /* Médio: duas áreas independentes para não comprimir/cortar o título. */
     body[data-timer-mode="medium"] #app .timer-card:not(.central){
-      min-height:116px!important;
-      padding:10px 16px!important;
-      display:grid!important;
-      grid-template-columns:48px 64px max-content!important;
-      grid-template-rows:minmax(22px,auto) 64px!important;
-      column-gap:12px!important;
-      row-gap:4px!important;
-      justify-content:center!important;
-      align-items:center!important;
-      overflow:visible!important;
+      position:relative!important;
+      display:block!important;
+      min-height:118px!important;
+      height:118px!important;
+      padding:0!important;
+      overflow:hidden!important;
     }
     body[data-timer-mode="medium"] #app .timer-card:not(.central)>.name{
-      grid-column:1/-1!important;
-      grid-row:1!important;
-      width:100%!important;
+      position:absolute!important;
+      left:18px!important;
+      right:18px!important;
+      top:13px!important;
+      width:auto!important;
       max-width:none!important;
       min-width:0!important;
+      height:auto!important;
+      margin:0!important;
+      padding:0!important;
       display:block!important;
       text-align:center!important;
-      line-height:1.15!important;
-      white-space:normal!important;
-      overflow:visible!important;
-      text-overflow:clip!important;
-      justify-self:stretch!important;
-      align-self:center!important;
+      line-height:20px!important;
+      white-space:nowrap!important;
+      overflow:hidden!important;
+      text-overflow:ellipsis!important;
+      transform:none!important;
     }
-    /* O ícone original continua dentro de .name para não disputar com o decorador dinâmico;
-       no Médio ele é apenas ocultado e uma cópia visual é usada na segunda linha. */
     body[data-timer-mode="medium"] #app .timer-card:not(.central)>.name>.beta-standard-timer-icon{
       display:none!important;
     }
     body[data-timer-mode="medium"] #app .timer-card:not(.central)>.icon{
-      grid-column:1!important;
-      grid-row:2!important;
-      justify-self:center!important;
-      align-self:center!important;
+      position:absolute!important;
+      left:18px!important;
+      top:61px!important;
+      width:42px!important;
+      height:42px!important;
+      margin:0!important;
+      display:grid!important;
+      place-items:center!important;
+      transform:none!important;
     }
-    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-timer-icon{
-      grid-column:2!important;
-      grid-row:2!important;
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-bottom-row{
+      position:absolute!important;
+      left:50%!important;
+      top:52px!important;
+      transform:translateX(-50%)!important;
+      display:flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      gap:12px!important;
+      width:max-content!important;
+      max-width:calc(100% - 128px)!important;
+      height:58px!important;
+      margin:0!important;
+      padding:0!important;
+      pointer-events:none!important;
+    }
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-bottom-row>.beta-medium-timer-icon{
       display:block!important;
       width:48px!important;
       height:48px!important;
+      min-width:48px!important;
       margin:0!important;
-      justify-self:center!important;
-      align-self:center!important;
       line-height:0!important;
       opacity:.85!important;
       flex:0 0 auto!important;
     }
-    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-timer-icon svg{
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-bottom-row>.beta-medium-timer-icon svg{
       display:block!important;
       width:100%!important;
       height:100%!important;
       overflow:visible!important;
       fill:currentColor!important;
     }
-    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-timer-icon.beta-standard-timer-icon-mask{
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-bottom-row>.beta-medium-timer-icon.beta-standard-timer-icon-mask{
       background:currentColor!important;
       -webkit-mask-repeat:no-repeat!important;
       mask-repeat:no-repeat!important;
@@ -108,21 +124,25 @@
       -webkit-mask-size:contain!important;
       mask-size:contain!important;
     }
-    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-timer-icon.beta-primer-timer-icon,
-    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-timer-icon.beta-standard-timer-icon-mask[style*="estrutura.svg"]{
-      width:60px!important;
-      height:60px!important;
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-bottom-row>.beta-medium-timer-icon.beta-primer-timer-icon,
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-bottom-row>.beta-medium-timer-icon.beta-standard-timer-icon-mask[style*="estrutura.svg"]{
+      width:58px!important;
+      height:58px!important;
+      min-width:58px!important;
     }
-    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.time{
-      grid-column:3!important;
-      grid-row:2!important;
-      justify-self:start!important;
-      align-self:center!important;
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-medium-bottom-row>.time{
+      position:static!important;
+      display:block!important;
+      width:auto!important;
+      min-width:0!important;
+      margin:0!important;
+      padding:0!important;
+      transform:none!important;
       text-align:left!important;
       font-size:42px!important;
       line-height:1!important;
       white-space:nowrap!important;
-      min-width:0!important;
+      flex:0 0 auto!important;
     }
   </style>
 </head>
@@ -160,6 +180,13 @@
     const app=document.getElementById('app');
     if(!app)return;
     let syncing=false;
+    const restoreCard=card=>{
+      const row=card.querySelector(':scope>.beta-medium-bottom-row');
+      if(!row)return;
+      const time=row.querySelector(':scope>.time');
+      if(time)card.appendChild(time);
+      row.remove();
+    };
     const sync=()=>{
       if(syncing)return;
       syncing=true;
@@ -167,20 +194,26 @@
         const medium=document.body.dataset.timerMode==='medium';
         app.querySelectorAll('.timer-card:not(.central)').forEach(card=>{
           const name=card.querySelector(':scope>.name');
-          const time=card.querySelector(':scope>.time');
-          if(!name||!time)return;
-          const source=name.querySelector(':scope>.beta-standard-timer-icon');
-          const clone=card.querySelector(':scope>.beta-medium-timer-icon');
-          if(medium){
-            if(source&&!clone){
-              const visual=source.cloneNode(true);
-              visual.classList.add('beta-medium-timer-icon');
-              visual.setAttribute('aria-hidden','true');
-              card.insertBefore(visual,time);
-            }
-          }else if(clone){
-            clone.remove();
+          if(!name)return;
+          if(!medium){restoreCard(card);return;}
+          let row=card.querySelector(':scope>.beta-medium-bottom-row');
+          let time=card.querySelector(':scope>.time') || row?.querySelector(':scope>.time');
+          if(!time)return;
+          if(!row){
+            row=document.createElement('span');
+            row.className='beta-medium-bottom-row';
+            row.setAttribute('aria-hidden','true');
+            card.appendChild(row);
           }
+          const source=name.querySelector(':scope>.beta-standard-timer-icon');
+          let visual=row.querySelector(':scope>.beta-medium-timer-icon');
+          if(source&&!visual){
+            visual=source.cloneNode(true);
+            visual.classList.add('beta-medium-timer-icon');
+            visual.setAttribute('aria-hidden','true');
+            row.appendChild(visual);
+          }
+          if(time.parentElement!==row)row.appendChild(time);
         });
       }finally{syncing=false;}
     };
