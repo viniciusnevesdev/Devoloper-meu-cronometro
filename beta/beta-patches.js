@@ -84,8 +84,12 @@
   const style=document.createElement('style');
   style.id='beta-standard-timer-icons-style';
   style.textContent=
+    '.timer-card:not(.central){' +
+      'grid-template-columns:38px minmax(0,1fr) auto!important;' +
+      'column-gap:4px!important;' +
+    '}' +
     '.timer-card .name .beta-standard-timer-icon{' +
-      'display:inline-block;width:30px;height:30px;margin-right:8px;' +
+      'display:inline-block;width:30px;height:30px;margin-right:5px;' +
       'vertical-align:-4px;line-height:0;opacity:.85;flex:0 0 auto;' +
     '}' +
     '.timer-card .name .beta-standard-timer-icon svg{' +
@@ -96,7 +100,7 @@
       '-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;' +
     '}' +
     '.timer-card .name .beta-primer-timer-icon{' +
-      'width:39px;height:39px;margin-left:-4px;margin-right:7px;vertical-align:-11px;' +
+      'width:39px;height:39px;margin-left:-4px;margin-right:5px;vertical-align:-11px;' +
     '}' +
     '.timer-card.central .name .beta-standard-timer-icon{vertical-align:-4px;}';
   document.head.appendChild(style);
