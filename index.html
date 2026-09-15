@@ -23,17 +23,15 @@
   <link rel="stylesheet" href="./cronometro-v088-ultra-visual.css" />
   <style id="beta-timer-title-centering">
     #app .timer-card:not(.central){position:relative!important}
-    #app .timer-card:not(.central)>.icon{grid-column:1!important}
-    #app .timer-card:not(.central)>.time{grid-column:3!important}
-    #app .timer-card:not(.central)>.name{
+    #app .timer-card:not(.central) .name{
       position:absolute!important;left:50%!important;top:50%!important;
       transform:translate(-50%,-50%)!important;width:max-content!important;
       max-width:calc(100% - 150px)!important;text-align:center!important;white-space:nowrap!important;
-      overflow:visible!important;text-overflow:clip!important;
+      overflow:visible!important;text-overflow:clip!important;line-height:1.05!important;
       display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important
     }
-    #app .timer-card:not(.central)>.name .beta-standard-timer-icon{
-      position:static!important;transform:none!important;margin:0!important;vertical-align:0!important;
+    #app .timer-card:not(.central) .name .beta-standard-timer-icon{
+      position:static!important;transform:none!important;margin:0!important;vertical-align:middle!important;
       flex:0 0 auto!important
     }
   </style>
@@ -67,5 +65,42 @@
   <script src="./cronometro-v086-stats-icon.js"></script>
   <script src="./cronometro-v087-data-backup.js"></script>
   <script src="./cronometro-v088-ultra-visual.js"></script>
+  <script>
+    (()=>{
+      const alignTimerTitles=()=>{
+        document.querySelectorAll('#app .timer-card:not(.central)').forEach(card=>{
+          const name=card.querySelector('.name');
+          if(!name)return;
+          card.style.setProperty('position','relative','important');
+          name.style.setProperty('position','absolute','important');
+          name.style.setProperty('left','50%','important');
+          name.style.setProperty('top','50%','important');
+          name.style.setProperty('transform','translate(-50%,-50%)','important');
+          name.style.setProperty('width','max-content','important');
+          name.style.setProperty('max-width','calc(100% - 150px)','important');
+          name.style.setProperty('display','flex','important');
+          name.style.setProperty('align-items','center','important');
+          name.style.setProperty('justify-content','center','important');
+          name.style.setProperty('gap','5px','important');
+          name.style.setProperty('line-height','1.05','important');
+          name.style.setProperty('white-space','nowrap','important');
+          name.style.setProperty('text-align','center','important');
+          const icon=name.querySelector('.beta-standard-timer-icon');
+          if(icon){
+            icon.style.setProperty('position','static','important');
+            icon.style.setProperty('transform','none','important');
+            icon.style.setProperty('margin','0','important');
+            icon.style.setProperty('vertical-align','middle','important');
+            icon.style.setProperty('flex','0 0 auto','important');
+          }
+        });
+      };
+      const app=document.getElementById('app');
+      if(!app)return;
+      alignTimerTitles();
+      new MutationObserver(alignTimerTitles).observe(app,{childList:true,subtree:true});
+      window.addEventListener('pageshow',alignTimerTitles);
+    })();
+  </script>
 </body>
 </html>
