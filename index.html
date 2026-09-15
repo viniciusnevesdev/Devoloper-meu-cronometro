@@ -39,6 +39,83 @@
       width:39px!important;
       height:39px!important;
     }
+
+    /* Tamanho Médio: título sozinho em cima; controles, ícone semântico e contador embaixo. */
+    body[data-timer-mode="medium"] #app .timer-card:not(.central){
+      min-height:112px!important;
+      padding:10px 14px!important;
+      grid-template-columns:48px 60px minmax(0,1fr)!important;
+      grid-template-rows:auto 60px!important;
+      column-gap:8px!important;
+      row-gap:4px!important;
+      align-items:center!important;
+    }
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.name{
+      grid-column:1/-1!important;
+      grid-row:1!important;
+      width:100%!important;
+      min-width:0!important;
+      display:flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      gap:0!important;
+      text-align:center!important;
+      overflow:hidden!important;
+      text-overflow:ellipsis!important;
+      white-space:nowrap!important;
+      line-height:1.15!important;
+    }
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.icon{
+      grid-column:1!important;
+      grid-row:2!important;
+      justify-self:center!important;
+      align-self:center!important;
+    }
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-standard-timer-icon{
+      grid-column:2!important;
+      grid-row:2!important;
+      display:block!important;
+      width:46px!important;
+      height:46px!important;
+      margin:0!important;
+      justify-self:center!important;
+      align-self:center!important;
+      line-height:0!important;
+      opacity:.85!important;
+      flex:0 0 auto!important;
+    }
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-standard-timer-icon svg{
+      display:block!important;
+      width:100%!important;
+      height:100%!important;
+      overflow:visible!important;
+      fill:currentColor!important;
+    }
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-standard-timer-icon-mask{
+      background:currentColor!important;
+      -webkit-mask-repeat:no-repeat!important;
+      mask-repeat:no-repeat!important;
+      -webkit-mask-position:center!important;
+      mask-position:center!important;
+      -webkit-mask-size:contain!important;
+      mask-size:contain!important;
+    }
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-primer-timer-icon,
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.beta-standard-timer-icon-mask[style*="estrutura.svg"]{
+      width:60px!important;
+      height:60px!important;
+    }
+    body[data-timer-mode="medium"] #app .timer-card:not(.central)>.time{
+      grid-column:3!important;
+      grid-row:2!important;
+      justify-self:start!important;
+      align-self:center!important;
+      text-align:left!important;
+      font-size:42px!important;
+      line-height:1!important;
+      white-space:nowrap!important;
+    }
+    .beta-medium-icon-placeholder{display:none!important}
   </style>
 </head>
 <body>
@@ -70,5 +147,45 @@
   <script src="./cronometro-v086-stats-icon.js"></script>
   <script src="./cronometro-v087-data-backup.js"></script>
   <script src="./cronometro-v088-ultra-visual.js"></script>
+  <script id="beta-medium-timer-layout">
+  (()=>{
+    const app=document.getElementById('app');
+    if(!app)return;
+    let syncing=false;
+    const sync=()=>{
+      if(syncing)return;
+      syncing=true;
+      try{
+        const medium=document.body.dataset.timerMode==='medium';
+        app.querySelectorAll('.timer-card:not(.central)').forEach(card=>{
+          const name=card.querySelector(':scope>.name');
+          const time=card.querySelector(':scope>.time');
+          if(!name||!time)return;
+          const directIcon=card.querySelector(':scope>.beta-standard-timer-icon:not(.beta-medium-icon-placeholder)');
+          const nameIcon=name.querySelector('.beta-standard-timer-icon:not(.beta-medium-icon-placeholder)');
+          const placeholder=name.querySelector('.beta-medium-icon-placeholder');
+          if(medium){
+            if(nameIcon){
+              if(!placeholder){
+                const hold=document.createElement('span');
+                hold.className='beta-standard-timer-icon beta-medium-icon-placeholder';
+                hold.setAttribute('aria-hidden','true');
+                name.insertBefore(hold,name.firstChild);
+              }
+              card.insertBefore(nameIcon,time);
+            }
+          }else{
+            if(directIcon)name.insertBefore(directIcon,name.firstChild);
+            name.querySelectorAll('.beta-medium-icon-placeholder').forEach(el=>el.remove());
+          }
+        });
+      }finally{syncing=false;}
+    };
+    sync();
+    new MutationObserver(sync).observe(app,{childList:true,subtree:true});
+    new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['data-timer-mode']});
+    window.addEventListener('pageshow',sync);
+  })();
+  </script>
 </body>
 </html>
