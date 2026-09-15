@@ -1,5 +1,5 @@
 'use strict';
-const CACHE="cronometro-beta-0.8.9-beta.21-public-2";
+const CACHE="cronometro-beta-0.8.9-beta.22-public-2";
 const BETA_MODE=true;
 const ASSETS=[
   "./",
