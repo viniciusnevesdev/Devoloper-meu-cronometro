@@ -1,6 +1,6 @@
 {
   "environment": "beta",
-  "release": "0.8.9-beta.11",
+  "release": "0.8.9-beta.12",
   "branch": "development",
   "database": "cronometro_beta_v1",
   "production_database": "cronometro_local_v1",
