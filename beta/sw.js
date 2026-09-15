@@ -1,5 +1,5 @@
 'use strict';
-const CACHE="cronometro-beta-0.8.9-beta.10-public-2";
+const CACHE="cronometro-beta-0.8.9-beta.11-public-2";
 const BETA_MODE=true;
 const ASSETS=[
   "./",
@@ -52,6 +52,7 @@ const ASSETS=[
   "./cronometro-v088-ultra-visual.js",
   "./design-config.js",
   "./environment.json",
+  "./estrutura.svg",
   "./icon.svg",
   "./index.html",
   "./initial-data.json",
