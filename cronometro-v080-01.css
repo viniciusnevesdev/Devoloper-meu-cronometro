@@ -106,7 +106,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 button:disabled{opacity:.28;cursor:default}
 
-.app-shell{min-height:100vh;padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+.app-shell{min-height:100vh;min-height:100dvh;padding-bottom:calc(78px + env(safe-area-inset-bottom))}
 .content{padding:var(--content-top,14px) var(--content-side,18px) 28px}
 .sf-icon{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:var(--icon-stroke,1.8);stroke-linecap:round;stroke-linejoin:round;display:block;flex:0 0 auto}
 .muted,.secondary-value{color:var(--secondary)}
